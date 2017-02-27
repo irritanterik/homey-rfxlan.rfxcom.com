@@ -1,0 +1,19 @@
+/* Overrule top margin bootstrap */
+h2 {
+  margin-top: 0px !important;
+  margin-bottom: 10px !important;
+}
+
+.panel-button {
+  margin-top: 0px !important;
+}
+
+/* Input form fields */
+.code {
+  font-family: monospace;
+}
+
+/* Messages */
+body {
+  position: relative;
+}

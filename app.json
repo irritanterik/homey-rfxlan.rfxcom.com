@@ -1,0 +1,182 @@
+{
+  "id":"com.rfxcom.rfxlan",
+  "version":"0.0.0",
+  "compatibility":">=1.1.9",
+  "name": {
+    "en": "RFXLAN",
+    "nl": "RFXLAN"
+  },
+  "description": {
+    "en": "Integrate you're RFXLAN with Homey",
+    "nl": "Gebruik je RFXLAN samen met Homey"
+  },
+  "category": [
+    "climate",
+    "security",
+    "lights",
+    "appliances"
+  ],
+  "permissions": [
+    "homey:app:com.internet"
+  ],
+  "author":{
+    "name":"Erik van Dongen",
+    "website":"http://github.com/irritanterik/"
+  },
+  "images":{
+    "large":"./assets/images/large.jpg",
+    "small":"./assets/images/small.jpg"
+  },
+  "drivers":[
+    {
+      "id":"harrison",
+      "name":{
+        "en":"Harrison Curtain",
+        "nl":"Harrison Gordijn"
+      },
+      "images":{
+        "large":"drivers/harrison/assets/large.jpg",
+        "small":"drivers/harrison/assets/small.jpg"
+      },
+      "class":"windowcoverings",
+      "capabilities":["windowcoverings_state"],
+      "settings":[
+        {
+          "type":"group",
+          "label":{
+            "en":"General settings",
+            "nl":"Instellingen"
+          },
+          "children":[
+            { "id":"housecode",
+              "type":"text",
+              "label":{
+                "en":"Device code",
+                "nl":"Apparaatcode"
+              },
+              "value": "A1",
+              "pattern": "[a-pA-P][0-9]{1,2}",
+              "hint": {
+                "en": "Code as converted by RFXLAN to Harrison address (A1 to P16)"
+              }
+            },
+            { "id":"inverted",
+              "type":"radio",
+              "label":{
+                "en":"Invert open/close signal",
+                "nl":"Draai open/dicht signaal om"
+              },
+              "value": "0",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "No",
+                    "nl": "Nee"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Yes",
+                    "nl": "Ja"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "pair":[
+        {
+          "id":"configure_harrison"
+        }
+      ]
+    },
+    {
+      "id":"oregon",
+      "name":{
+        "en":"Oregon sensor",
+        "nl":"Oregon sensor"
+      },
+      "images":{
+        "large":"drivers/oregon/assets/large.jpg",
+        "small":"drivers/oregon/assets/small.jpg"
+      },
+      "class":"sensor",
+      "capabilities":[
+        "alarm_battery",
+        "measure_battery", 
+        "measure_current",
+        "measure_gust_angle",
+        "measure_gust_strength",
+        "measure_humidity",
+        "measure_power",
+        "measure_pressure",
+        "measure_rain",
+        "measure_temperature",
+        "measure_ultraviolet",
+        "measure_wind_strength",
+        "meter_power"
+      ],
+      "settings":[
+        {
+          "type":"group",
+          "label":{
+            "en":"General settings",
+            "nl":"Instellingen"
+          },
+          "children":[
+            { "id":"sensorId",
+              "type":"text",
+              "label":{
+                "en":"Sensor id",
+                "nl":"Sensor id"
+              },
+              "value": "0xcb02",
+              "pattern": "0x[a-f0-9]+",
+              "hint": {
+                "en": "Hex formatted unique identifier of sensor. After battery replace this can be changed."
+              }
+            }
+          ]
+        }
+      ],
+      "pair":[
+        {
+          "id":"start_oregon"
+        },
+        {
+          "id":"list_devices",
+          "template":"list_devices",
+          "navigation":{
+            "next":"add_device"
+          }
+        },
+        {
+          "id":"add_device",
+          "template":"add_devices"
+        }
+      ]
+    }
+  ],
+  "flow":{
+    "actions":[
+      { "id": "logAction",
+        "title":{
+          "en":"Log"
+        },
+        "args":[
+          {
+            "name":"text",
+            "type":"text",
+            "placeholder":{
+              "en":"Debug text",
+              "nl":"Debug tekst"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

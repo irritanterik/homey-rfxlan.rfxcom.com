@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+  <head>
+    <script>
+    </script>
+    <script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>
+    <script type="text/javascript" src="js/settings.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"/>
+    <link type="text/css" rel="stylesheet" href="css/settings.css"/>
+  </head>
+  <body>
+    <ul class="nav nav-tabs">
+      <li id="panel-button-1" class="h5 panel-button"><a href="javascript:showPanel(1)">Server settings</a></li>
+      <li id="panel-button-2" class="h5 panel-button"><a href="javascript:showPanel(2)">Heard list</a></li>
+    </ul>
+    <!-- Server settings panel -->
+    <div id="panel-1" class="panel">
+      <h5>RFXLAN and XPL configuration</h5>
+      <fieldset>
+        <div class="col-sm-12">
+          <strong>XPL<strong>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" class="checkbox" id="checkbox-xpl-hub">
+              Run as XPL hub
+            </label>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    <!-- Heard list panel -->
+    <div id="panel-2" class="panel">
+      <h5>Sensor Heard List</h5>
+      <p>
+      Below is a list of all sensors heard by RFXLAN. You can use this view to find a sensor id after a battery change.
+      </p>
+      <div class="col-sm-12">
+        <table class="table table-condensed">
+          <thead>
+            <tr>
+              <th class="col-sm-4">Type</th>
+              <th class="col-sm-2">Last update</th>
+              <th class="col-sm-6">Values</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

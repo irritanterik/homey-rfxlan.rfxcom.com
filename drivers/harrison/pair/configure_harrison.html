@@ -1,0 +1,56 @@
+<style type="text/css">
+  span label {
+    width: 100px
+  }
+</style>
+<script type="text/javascript">
+  // Set translated items
+  $("label[for='name']").text(__('pair.configuration.name') + ':')
+  $("label[for='ip_address']").text(__('pair.configuration.ip_address') + ':')
+  $("label[for='tcp_port']").text(__('pair.configuration.tcp_port') + ':')
+
+  function configure()
+  {
+    $('.ip-scan-err-msg').text('')
+
+    var name = $('#name').val()
+    var housecode = $('#housecode').val()
+    var device = {
+        data: {
+            id: new Date().getTime(),
+            homeyDriverName: 'harrison'
+        },
+        name: name, // the name for this device (optional),
+        settings: {
+            housecode: housecode,
+            inverted: '0'
+        }
+    };
+
+    Homey.emit('configure_harrison', device, function (error, result ) {
+      if (error) {
+        $('.ip-scan-err-msg').text(error)
+      } else {
+        //Successfully connected
+        Homey.addDevice(device, function (error, result) {
+          if (error) return console.error(error)
+          Homey.done()
+        })
+      }
+    })
+  }
+</script>
+
+<p id="authentication_text" data-i18n="pair.configuration.explanation"></p>
+<p class="form-group">
+  <span class="input-wrap">
+    <label for="name"></label>
+    <input type="text" id="name"></input>
+
+    <label for="housecode"></label>
+    <input type="text" id="housecode"></input>
+  </span>
+</p>
+<button class="button" id="authentication_button" onclick="configure();" data-i18n="pair.configuration.configure" />
+<br /><br />
+<p class="ip-scan-err-msg" style="color: #ff6300;"></p>

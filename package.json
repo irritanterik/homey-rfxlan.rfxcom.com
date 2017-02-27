@@ -1,0 +1,7 @@
+{
+  "name":"Homey-rfxlan",
+  "author":"Erik van Dongen",
+  "license": "ISC",
+  "dependencies":{
+  }
+}
