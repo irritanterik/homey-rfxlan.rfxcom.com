@@ -137,7 +137,7 @@ var self = {
   checkMessage: function (device, values) {
     var deviceId
     Object.keys(items).forEach(id => {
-      if (items[id].sensorType + ' ' + items[id].sensorId === device) deviceId = id
+      if (items[id].sensorType + ' ' + items[id].sensorId === device && items[id].values) deviceId = id
     })
     if (!deviceId) return
     Object.keys(values).forEach(key => {
@@ -179,7 +179,9 @@ var self = {
 
 function getCapability (device, capability, callback) {
   Util.debugLog('capabilities > ' + capability + ' > get', device)
-  var value = Homey.app.heardList()[items[device.id].sensorType + ' ' + items[device.id].sensorId].values[capabilityMap[capability]] * 1
+  var heardDevice = Homey.app.heardList()[items[device.id].sensorType + ' ' + items[device.id].sensorId]
+  if (!heardDevice || !heardDevice.values) return callback('not initiated')
+  var value = heardDevice.values[capabilityMap[capability]] * 1
   items[device.id].values[capability] = value
   callback(null, value)
 }
