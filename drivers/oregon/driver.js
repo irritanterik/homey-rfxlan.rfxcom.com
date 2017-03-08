@@ -54,16 +54,17 @@ var self = {
       Homey.manager('drivers').getDriver(device.homeyDriverName).getName(device, (error, name) => {
         Util.debugLog('Initiate device', {name: name, data: device})
         if (error) return
-        items[device.id] = {
-          id: device.id,
-          name: name,
-          sensorType: device.type,
-          data: device,
-          values: {}
-        }
         module.exports.getSettings(device, (error, settings) => {
           if (error) Util.debugLog('Error on loading device settings', {device: device, error: error})
-          items[device.id].sensorId = settings.sensorId
+          items[device.id] = {
+            id: device.id,
+            name: name,
+            sensorType: device.type,
+            sensorId: settings.sensorId,
+            data: device,
+            values: {}
+          }
+          Homey.app.setPaired(device.type + ' ' + items[device.id].sensorId, 'oregon')
         })
       })
     })

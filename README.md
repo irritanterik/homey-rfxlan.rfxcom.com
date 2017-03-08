@@ -8,10 +8,10 @@ If you like the app, buy me a beer!
 ## Supported
 - Harrison Curtains
 - Oregon Scientific Weather sensors
+- Visonic Security and wireless X10 sensors
 
 ### Todo
+- RFXLAN i/o port support
 - Show heard list on settings page
 - Make running as XPL hub optional
-- Visonic Security sensor supported
-- RFXLAN i/o port support
 - All other devices by request

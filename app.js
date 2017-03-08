@@ -13,16 +13,20 @@ function setPaired (device, paired) {
   Homey.manager('settings').set('heardList', heardList)
 }
 
-function updateHeardList (message) {
+function updateHeardList (message, valueOverwrite) {
   if (!heardList[message.device]) {
     heardList[message.device] = message
     heardList[message.device].paired = false
   }
   heardList[message.device].lastUpdate = new Date()
   heardList[message.device].count = (heardList[message.device].count || 0) + 1
-  Object.keys(message.values).forEach(valueKey => {
-    heardList[message.device].values[valueKey] = message.values[valueKey]
-  })
+  if (valueOverwrite) {
+    heardList[message.device].values = message.values
+  } else {
+    Object.keys(message.values).forEach(valueKey => {
+      heardList[message.device].values[valueKey] = message.values[valueKey]
+    })
+  }
   Homey.manager('settings').set('heardList', heardList)
   if (heardList[message.device].paired) {
     Homey.manager('drivers').getDriver(heardList[message.device].paired).checkMessage(message.device, message.values)
@@ -33,7 +37,8 @@ function startXpl () {
   xpl = new Xpl({
     source: 'homey',
     broadcastAddress: '255.255.255.255',
-    xplLog: false
+    xplLog: false,
+    hubSupport: true // TODO create setting
   })
 
   xpl.on('message', function (message) {
@@ -47,7 +52,7 @@ function startXpl () {
           values: {}
         }
         heard.values[message.body.type] = message.body.current
-        updateHeardList(heard)
+        updateHeardList(heard, false)
         break
       case 'x10.security':
         heard = {
@@ -57,14 +62,14 @@ function startXpl () {
         }
         delete heard.values['device']
         delete heard.values['type']
-        updateHeardList(heard)
+        updateHeardList(heard, true)
         break
       case 'hbeat.basic':
         updateHeardList({
           device: message.header.source,
           type: 'xpl-device',
           values: message.body
-        })
+        }, false)
         break
       default:
         util.debugLog('xpl', 'received unsupported message', message.bodyName, message.body)
@@ -83,6 +88,7 @@ module.exports = {
   init: function () {
     util.debugLog('debug', 'App started')
     heardList = Homey.manager('settings').get('heardList') || {}
+    Object.keys(heardList).forEach(id => heardList[id].paired = false)
     startXpl()
     // flowConditions.init()
     // flowActions.init()

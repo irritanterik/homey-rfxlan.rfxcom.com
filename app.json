@@ -1,6 +1,6 @@
 {
   "id":"com.rfxcom.rfxlan",
-  "version":"0.0.0",
+  "version":"0.0.1",
   "compatibility":">=1.1.9",
   "name": {
     "en": "RFXLAN",
@@ -16,9 +16,7 @@
     "lights",
     "appliances"
   ],
-  "permissions": [
-    "homey:app:com.internet"
-  ],
+  "permissions": [],
   "author":{
     "name":"Erik van Dongen",
     "website":"http://github.com/irritanterik/"
@@ -96,8 +94,8 @@
     {
       "id":"oregon",
       "name":{
-        "en":"Oregon sensor",
-        "nl":"Oregon sensor"
+        "en":"Oregon Sensor",
+        "nl":"Oregon Sensor"
       },
       "images":{
         "large":"drivers/oregon/assets/large.jpg",
@@ -106,7 +104,7 @@
       "class":"sensor",
       "capabilities":[
         "alarm_battery",
-        "measure_battery", 
+        "measure_battery",
         "measure_current",
         "measure_gust_angle",
         "measure_gust_strength",
@@ -145,6 +143,62 @@
       "pair":[
         {
           "id":"start_oregon"
+        },
+        {
+          "id":"list_devices",
+          "template":"list_devices",
+          "navigation":{
+            "next":"add_device"
+          }
+        },
+        {
+          "id":"add_device",
+          "template":"add_devices"
+        }
+      ]
+    },
+    {
+      "id":"security",
+      "name":{
+        "en":"Security Sensor",
+        "nl":"Security Sensor"
+      },
+      "images":{
+        "large":"drivers/oregon/assets/large.jpg",
+        "small":"drivers/oregon/assets/small.jpg"
+      },
+      "class":"sensor",
+      "capabilities":[
+        "alarm_contact",
+        "alarm_battery",
+        "alarm_tamper"
+      ],
+      "settings":[
+        {
+          "type":"group",
+          "label":{
+            "en":"General settings",
+            "nl":"Instellingen"
+          },
+          "children":[
+            { "id":"sensorId",
+              "type":"text",
+              "label":{
+                "en":"Sensor id",
+                "nl":"Sensor id"
+              },
+              "value": "0xcb02",
+              "pattern": "0x[a-f0-9]+",
+              "hint": {
+                "en": "Hex formatted unique identifier of sensor. After battery replace this can be changed."
+              }
+            }
+          ]
+        }
+      ],
+      "pair":[
+        {
+          "id":"start_security"
         },
         {
           "id":"list_devices",
