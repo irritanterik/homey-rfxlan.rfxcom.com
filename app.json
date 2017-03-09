@@ -164,8 +164,8 @@
         "nl":"Security Sensor"
       },
       "images":{
-        "large":"drivers/oregon/assets/large.jpg",
-        "small":"drivers/oregon/assets/small.jpg"
+        "large":"drivers/security/assets/large.jpg",
+        "small":"drivers/security/assets/small.jpg"
       },
       "class":"sensor",
       "capabilities":[
