@@ -140,7 +140,7 @@ var self = {
     var lowBattery = false
     var tamper = false
     Object.keys(values).forEach(key => {
-      if (key === 'command') contact = values[key] === 'normal'
+      if (key === 'command') contact = values[key] !== 'normal'
       if (key === 'low-battery') lowBattery = values[key] === 'true'
       if (key === 'tamper') tamper = values[key] === 'true'
     })

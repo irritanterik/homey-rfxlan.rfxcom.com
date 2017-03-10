@@ -97,7 +97,8 @@ module.exports = {
     return xpl
   },
   heardList: function () {
-    return heardList
+    if (Object.keys(heardList).length > 0) return heardList
+    return Homey.manager('settings').get('heardList') || {}
   },
   setPaired: setPaired
 }

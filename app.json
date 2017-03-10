@@ -1,6 +1,6 @@
 {
   "id":"com.rfxcom.rfxlan",
-  "version":"0.0.1",
+  "version":"0.0.2",
   "compatibility":">=1.1.9",
   "name": {
     "en": "RFXLAN",
